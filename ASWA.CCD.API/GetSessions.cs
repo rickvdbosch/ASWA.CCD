@@ -12,7 +12,7 @@ namespace ASWA.CCD.API
     {
         [Function("GetSessions")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "sessions")] HttpRequest req, 
-            [TableInput("sessions", Connection = "StorageConnectionString")] IEnumerable<SessionEntity> sessionInput)
+            [TableInput("sessions", "20260610" , Connection = "StorageConnectionString")] IEnumerable<SessionEntity> sessionInput)
         {
             logger.LogInformation("C# HTTP trigger function GetSessions processed a request.");
             var sessions = sessionInput.OrderBy(se => se.Start).ToList();
