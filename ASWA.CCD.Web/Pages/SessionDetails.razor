@@ -2,28 +2,34 @@
 
 @inject HttpClient http
 
-<h3>Session Details</h3>
+<PageTitle>Session Details</PageTitle>
+
+<a class="back-link" href="/sessions">← Back to sessions</a>
+
 @if (session == null)
 {
     if (message != null)
     {
-        <h2>@message</h2>
+        <div class="error-state">
+            <h2>@message</h2>
+        </div>
     }
     else
     {
-        <p><em>Loading...</em></p>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading session details...</p>
+        </div>
     }
 }
 else
 {
-    <h1>
-        @session.Title <small>by</small>
-    </h1>
-    <div>
-        @((MarkupString)session.Speaker)
-    </div>
-    <div>
-        @session.Description
+    <div class="detail-card">
+        <h1>@session.Title</h1>
+        <div class="speaker-name">@((MarkupString)session.Speaker)</div>
+        <div class="description">
+            @session.Description
+        </div>
     </div>
 }
 

@@ -4,40 +4,42 @@
 
 <PageTitle>Sessions</PageTitle>
 
-<h1>Sessions</h1>
+<h1 class="page-title">Sessions</h1>
+<p class="page-subtitle">Browse the bootcamp schedule</p>
 
 @if (sessions == null)
 {
     if (message != null)
     {
-        <h2>@message</h2>
+        <div class="error-state">
+            <h2>@message</h2>
+        </div>
     }
     else
     {
-        <p><em>Loading...</em></p>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Loading sessions...</p>
+        </div>
     }
 }
 else
 {
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>Title</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Room</th>
-            <th>Details</th>
-        </tr>
+    <div class="session-grid">
+        @{ var delay = 0; }
         @foreach (var session in sessions)
         {
-            <tr>
-                <td>@session.Title</td>
-                <td>@session.Start</td>
-                <td>@session.End</td>
-                <td>@session.Room</td>
-                <td><a href="/sessiondetails/20250228/@(session.Id)">Details</a></td>
-            </tr>
+            <div class="session-card fade-in fade-in-delay-@(delay % 4)">
+                <h3>@session.Title</h3>
+                <div class="session-meta">
+                    <span class="meta-tag">🕐 @session.Start – @session.End</span>
+                    <span class="meta-tag">📍 @session.Room</span>
+                </div>
+                <a class="details-link" href="/sessiondetails/20260610/@(session.Id)">View details →</a>
+            </div>
+            delay++;
         }
-    </table>
+    </div>
 }
 
 @code {
