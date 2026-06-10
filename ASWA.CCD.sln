@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.35821.62
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11822.327 insiders
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASWA.CCD.API", "ASWA.CCD.API\ASWA.CCD.API.csproj", "{263E2FFF-AFFD-4EBF-8434-B6E19D03B07B}"
 EndProject
