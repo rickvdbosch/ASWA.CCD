@@ -1,4 +1,5 @@
 {
+  //Route definitions
   "routes": [
     {
       "route": "/login",
@@ -6,21 +7,87 @@
       "allowedRoles": [ "anonymous" ]
     },
     {
+      "route": "/logout",
+      "redirect": "/.auth/logout",
+      "statusCode": 302
+    },
+    {
       "route": "/sessiondetails/*",
-      "allowedRoles": [ "authenticated" ]
+      "allowedRoles": [ "authenticated" ],
+      "methods": [ "GET" ],
+      "headers": {
+        "Cache-Control": "no-store"
+      }
+    },
+    {
+      "route": "/api/secure",
+      "allowedRoles": [ "authenticated" ],
+      "methods": [ "GET" ]
+    },
+    {
+      "route": "/api/secured",
+      "allowedRoles": [ "administrator" ],
+      "methods": [ "POST" ]
     }
+
   ],
+
+  //Navigation fallback: frameworks like Angular and Blazor handle their own routing, this ensures that any routes not handled by the static files will be passed to the app's router
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": [ "/images/*.{png,jpg,gif}", "/*.css", "*.js" ]
   },
+
+  //Response overrides: allows you to specify custom error pages for specific status codes
   "responseOverrides": {
     "401": {
       "redirect": "/login",
       "statusCode": 302
+    },
+    "403": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    },
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
     }
   },
+
+  //Global headers: allows you to specify headers that will be added to all responses
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Content-Security-Policy": "default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+    "X-XSS-Protection": "1; mode=block"
+  },
+
+  //Mime types: allows you to specify custom mime types for specific file extensions
   "mimeTypes": {
-    ".json": "text/json"
-  }
+    ".json": "text/json",
+    ".wasm": "application/wasm"
+  },
+
+  //Networking: allows you to specify custom networking settings for the app
+  "networking": {
+    "allowedIpRanges": [ "0.0.0.0/0" ]
+  },
+
+  //Forwarding gateway: allows you to specify a forwarding gateway for the app, which can be used to forward requests to another backend service
+  "forwardingGateway": {
+    "allowedForwardedHosts": [ "*.azurestaticapps.net" ],
+    "requiredHeaders": {
+      "X-Azure-FDID": "00000000-0000-0000-0000-000000000000"
+    }
+  },
+
+  //Platform: allows you to specify platform settings for the app
+  "platform": {
+    "apiRuntime": "dotnet-isolated:9.0"
+  },
+
+  //Trailing slash: allows you to specify how trailing slashes in URLs should be handled
+  "trailingSlash": "auto"
 }
