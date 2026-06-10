@@ -20,7 +20,7 @@
       }
     },
     {
-      "route": "/api/secure",
+      "route": "/api/secured",
       "allowedRoles": [ "authenticated" ],
       "methods": [ "GET" ]
     },
@@ -69,7 +69,6 @@
     ".json": "text/json",
     ".wasm": "application/wasm"
   },
-
 
   //Platform: allows you to specify platform settings for the app
   "platform": {
