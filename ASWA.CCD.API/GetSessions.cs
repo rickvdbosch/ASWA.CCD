@@ -11,11 +11,12 @@ namespace ASWA.CCD.API
     public class GetSessions(ILogger<GetSessions> logger)
     {
         [Function("GetSessions")]
-        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "sessions")] HttpRequest req, 
-            [TableInput("sessions", "20260610" , Connection = "StorageConnectionString")] IEnumerable<SessionEntity> sessionInput)
+        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "sessions")] HttpRequest req,
+            [TableInput("sessions", "20260610", Connection = "StorageConnectionString")] IEnumerable<SessionEntity> sessionInput)
         {
             logger.LogInformation("C# HTTP trigger function GetSessions processed a request.");
             var sessions = sessionInput.OrderBy(se => se.Start).ToList();
+            var now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time")).TimeOfDay;
 
             return new OkObjectResult(sessions.Select(v => new SessionModel()
             {
@@ -26,9 +27,10 @@ namespace ASWA.CCD.API
                 Room = v.Room,
                 Title = v.Title,
                 Speaker = v.Speaker,
-                Start = v.Start
-            }).ToArray());
+                Start = v.Start,
+                IsPast = now > TimeSpan.Parse(v.End),
+                IsActive = now >= TimeSpan.Parse(v.Start) && now <= TimeSpan.Parse(v.End)
+            }).OrderBy(s => int.Parse(s.Id)).ToArray());
         }
     }
 }
-    
