@@ -29,7 +29,7 @@ else
         @{ var delay = 0; }
         @foreach (var session in sessions)
         {
-            <div class="session-card fade-in fade-in-delay-@(delay % 4)">
+            <div class="session-card fade-in fade-in-delay-@(delay % 4) @(session.IsPast ? "session-past" : "") @(session.IsActive ? "session-active" : "")">
                 <h3>@session.Title</h3>
                 <div class="session-meta">
                     <span class="meta-tag">🕐 @session.Start – @session.End</span>
