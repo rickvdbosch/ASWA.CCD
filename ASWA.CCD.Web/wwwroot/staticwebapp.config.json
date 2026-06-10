@@ -20,7 +20,7 @@
       }
     },
     {
-      "route": "/api/secure",
+      "route": "/api/secured",
       "allowedRoles": [ "authenticated" ],
       "methods": [ "GET" ]
     },
