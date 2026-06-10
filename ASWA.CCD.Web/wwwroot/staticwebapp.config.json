@@ -70,18 +70,6 @@
     ".wasm": "application/wasm"
   },
 
-  //Networking: allows you to specify custom networking settings for the app
-  "networking": {
-    "allowedIpRanges": [ "0.0.0.0/0" ]
-  },
-
-  //Forwarding gateway: allows you to specify a forwarding gateway for the app, which can be used to forward requests to another backend service
-  "forwardingGateway": {
-    "allowedForwardedHosts": [ "*.azurestaticapps.net" ],
-    "requiredHeaders": {
-      "X-Azure-FDID": "00000000-0000-0000-0000-000000000000"
-    }
-  },
 
   //Platform: allows you to specify platform settings for the app
   "platform": {
@@ -89,5 +77,5 @@
   },
 
   //Trailing slash: allows you to specify how trailing slashes in URLs should be handled
-  "trailingSlash": "auto"
+  "trailingSlash": "never"
 }
