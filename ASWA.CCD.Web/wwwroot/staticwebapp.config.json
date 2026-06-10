@@ -77,10 +77,10 @@
 
   //Forwarding gateway: allows you to specify a forwarding gateway for the app, which can be used to forward requests to another backend service
   "forwardingGateway": {
-    "allowedForwardedHosts": [ "*.azurestaticapps.net" ],
-    "requiredHeaders": {
-      "X-Azure-FDID": "00000000-0000-0000-0000-000000000000"
-    }
+    //"allowedForwardedHosts": [ "*.azurestaticapps.net" ],
+    //"requiredHeaders": {
+    //  "X-Azure-FDID": "00000000-0000-0000-0000-000000000000"
+    //}
   },
 
   //Platform: allows you to specify platform settings for the app
